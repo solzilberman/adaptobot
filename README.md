@@ -1,3 +1,10 @@
+## Todo
+- [ ] plan step populates executable function array
+- [ ] adaptation tactic db
+- [ ] better obstacle placement
+- [ ] KAOS goal model
+- [ ] mapping utility funcs 
+
 ## Citations
 - https://cse.msu.edu/~langfo37/gsndraw/
 - https://learn.microsoft.com/en-us/windows/ai/windows-ml/tutorials/pytorch-train-model

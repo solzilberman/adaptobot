@@ -18,8 +18,6 @@ transformations = transforms.Compose([
 batch_size = 10
 number_of_labels = 10 
 
-
-
 # Define a convolution neural network
 class Network(nn.Module):
     def __init__(self):
@@ -47,10 +45,9 @@ class Network(nn.Module):
 
         return output
 
-model = Network()
-loss_fn = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters(), lr=0.001, weight_decay=0.0001)
-
+model = []#Network()
+loss_fn = []#nn.CrossEntropyLoss()
+optimizer = []#Adam(model.parameters(), lr=0.001, weight_decay=0.0001)
 
 def saveModel():
     path = "./ImgNet.pth"
@@ -132,10 +129,9 @@ def testBatch():
     print('Predicted: ', ' '.join('%5s' % classes[predicted[j]] 
                               for j in range(batch_size)))
 
-def _load_model():
+def _load_model(model_filename):
     model = Network()
-    path = "model/ImgNet.pth"
-    model.load_state_dict(torch.load(path))
+    model.load_state_dict(torch.load(model_filename))
     return model
 
 def _get_test_data():
