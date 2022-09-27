@@ -18,17 +18,6 @@ transformations = transforms.Compose([
 batch_size = 10
 number_of_labels = 10 
 
-train_set = datasets.CIFAR10(root="./data",train=True,transform=transformations,download=True)
-train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=0)
-print("The number of images in a training set is: ", len(train_loader)*batch_size)
-
-test_set = datasets.CIFAR10(root="./data", train=False, transform=transformations, download=True)
-test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=0)
-print("The number of images in a test set is: ", len(test_loader)*batch_size)
-
-print("The number of batches per epoch is: ", len(train_loader))
-classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
-
 
 
 # Define a convolution neural network
@@ -143,8 +132,31 @@ def testBatch():
     print('Predicted: ', ' '.join('%5s' % classes[predicted[j]] 
                               for j in range(batch_size)))
 
+def _load_model():
+    model = Network()
+    path = "model/ImgNet.pth"
+    model.load_state_dict(torch.load(path))
+    return model
+
+def _get_test_data():
+    test_set = datasets.CIFAR10(root="./data", train=False, transform=transformations, download=True)
+    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=0)
+    return test_loader
+
+
+
 if __name__ == "__main__":
-    
+    train_set = datasets.CIFAR10(root="./data",train=True,transform=transformations,download=True)
+    train_loader = DataLoader(train_set, batch_size=batch_size, shuffle=True, num_workers=0)
+    print("The number of images in a training set is: ", len(train_loader)*batch_size)
+
+    test_set = datasets.CIFAR10(root="./data", train=False, transform=transformations, download=True)
+    test_loader = DataLoader(test_set, batch_size=batch_size, shuffle=False, num_workers=0)
+    print("The number of images in a test set is: ", len(test_loader)*batch_size)
+
+    print("The number of batches per epoch is: ", len(train_loader))
+    classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+
     model = Network()
     path = "model/ImgNet.pth"
     model.load_state_dict(torch.load(path))
