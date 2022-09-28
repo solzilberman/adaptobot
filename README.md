@@ -1,21 +1,26 @@
-# Adaptive Rover
+# Adaptive Rover 2D Simulation
 
-## High-level Overview
+### Goal
+The goal of this project was to better understand GSN model creation via GSNDraw and experiment with structured assurance cases for LESs. This application is a simplified model of a MAPE-K based control system that adapts to a changing environment.
+
+This rover is heavily inspired and designed after the AC-ROS framework presented [here](https://dl.acm.org/doi/10.1145/3365438.3410952)
+
+## High-level Architecture Overview
 <img src="assets/archio.png" width="500px"/>
 
 ## Description
 This simulation consists of 4 main components, a rover, an adaptive manager, a knowledge base, and an environment. 
 
 ### 1. Rover
-The rover is designed to patrol waypoints iteratively while avoiding obstacles, maintaining appropriate battery levels, and staying on schedule. The rover has a *camera* able to detect objects within a specified range. If an obstacle is detected within this range, the rovers LEC is enabled. 
+The rover is designed to patrol waypoints iteratively while avoiding obstacles, maintaining appropriate battery levels, and staying on schedule. The rover has a *camera* able to detect objects within a specified range. If an obstacle is detected within this range, the rover's LEC is enabled. 
 
 #### 1.1 Rover's LEC
-The rovers LEC is a convolutional neural network trained on the CIFAR10 dataset. When the rover detects an obstacle within a specified range, it uses the CNN to classify the object. If the rover makes a correct prediction, the obstacle is *avoided* and moved to a new position. If the rover is unable to detect the obstacle, it enters manual mode and the user must use arrow keys to navigate it to the target waypoint. 
+The rover's LEC is a convolutional neural network trained on the CIFAR10 dataset. When the rover detects an obstacle within a specified range, it uses the CNN to classify the object. If the rover makes a correct prediction, the obstacle is *avoided* and moved to a new position. If the rover makes an incorrect guess we say that it is unable to detect the obstacle due to LEC degradation. In the real world, this would be water droplets covering the camera, or very foggy weather for example. If the LEC is degraded, the rover enters manual mode and the user must use arrow keys to navigate it to the target waypoint. 
 
 This flow for detecting objects is a "dummy" way to check if the LEC is degraded. This mimics the behavior oracle described in MoDALAS by ensuring the system is able to know when it encounters an obstacle it is not equipped to handle, and successively triggering an adaptation tactic.  
 
 ### 2. SAS (SelfAdaptiveSystem)
-This system consists of a knowledge base and a given rover to manage. Following the MAPE-K loop, the SAS monitors the rovers environment and internal state by requesting various data from the rover (loosely emulates ROS topic requests).  
+This system consists of a knowledge base and a given rover to manage. The SAS follows the MAPE-K control loop on each step of the simulation. (1. Monitor) First, the SAS monitors the rover's environment and internal state by requesting various data from the rover (loosely emulates ROS topic requests). (2. Analyze) This data is then analyzed and a utility violation pattern is generated. (3. Plan) Based on the violation pattern, the rover pushes commands to queue. (4. Execute) This queue is then iterated, executing each command and finally cleaning up any single-loop scoped variables.  
 
 #### 2.1 Assurance Case provided by GSN
 <img src="./gsn/gsn_img.jpg"/>
