@@ -4,3 +4,4 @@ data
 __pycache__
 movie.gif
 sample.gif
+nn/mnist.py
