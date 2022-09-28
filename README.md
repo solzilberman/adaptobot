@@ -48,9 +48,7 @@ ___
 ## Demo
 *please note: The simulated environment is running on Win10 wsl2 and displayed through a local X11 server. This causes visual artifacts during simulation recording which are visible below but not present when running the simulation.*
 
-![movie](https://user-images.githubusercontent.com/45021394/192883421-a2823bac-e09a-433f-9a7c-d807eafd1776.gif)
-
-
+![gif](https://user-images.githubusercontent.com/45021394/192883421-a2823bac-e09a-433f-9a7c-d807eafd1776.gif)
 
 This demo shows some of the adaptive capabilities of the rover. When the battery utility function is violated, the rover takes the `solar_charge` tactic that causes it to switch to *charge* mode, stop moving, and charge until battery level is sufficient. The live demo has a real-time terminal based dashboard displaying various rover/system logs. 
 
