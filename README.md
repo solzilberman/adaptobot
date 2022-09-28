@@ -7,7 +7,7 @@
 This simulation consists of 4 main components, a rover, an adaptive manager, a knowledge base, and an environment. 
 
 ### 1. Rover
-The rover is designed to patrol waypoints iteratively while avoiding obstacles, maintaining appropriate bettery levels, and staying on schedule. The rover has a *camera* able to detect objects within a specified range. If an obstacle is detected within this range, the rovers LEC is enabled. 
+The rover is designed to patrol waypoints iteratively while avoiding obstacles, maintaining appropriate battery levels, and staying on schedule. The rover has a *camera* able to detect objects within a specified range. If an obstacle is detected within this range, the rovers LEC is enabled. 
 
 #### 1.1 Rover's LEC
 The rovers LEC is a convolutional neural network trained on the CIFAR10 dataset. When the rover detects an obstacle within a specified range, it uses the CNN to classify the object. If the rover makes a correct prediction, the obstacle is *avoided* and moved to a new position. If the rover is unable to detect the obstacle, it enters manual mode and the user must use arrow keys to navigate it to the target waypoint. 
@@ -48,7 +48,9 @@ ___
 ## Demo
 *please note: The simulated environment is running on Win10 wsl2 and displayed through a local X11 server. This causes visual artifacts during simulation recording which are visible below but not present when running the simulation.*
 
-<img src="https://i.imgur.com/bk8WhKD.mp4">
+![movie](https://user-images.githubusercontent.com/45021394/192883421-a2823bac-e09a-433f-9a7c-d807eafd1776.gif)
+
+
 
 This demo shows some of the adaptive capabilities of the rover. When the battery utility function is violated, the rover takes the `solar_charge` tactic that causes it to switch to *charge* mode, stop moving, and charge until battery level is sufficient. The live demo has a real-time terminal based dashboard displaying various rover/system logs. 
 
