@@ -24,7 +24,8 @@ This system consists of a knowledge base and a given rover to manage. The SAS fo
 
 #### 2.1 Assurance Case provided by GSN
 <img src="./gsn/gsn_img.jpg"/>
-This model is parsed and utility functions extracted for later use by the SAS.
+This model is parsed and utility functions extracted for later use by the SAS. An incoming update will replace Solution `M0-S1.2.1` with a KAOS goal evaluation as pictured below:
+<img src="./gsn/kaos.jpg"/>
 
 #### 2.2 Adaptation Tactics
 These are designed after creating the GSN model and map utility violation patterns to actions that the rover can carry out.
