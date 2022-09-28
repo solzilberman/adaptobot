@@ -145,10 +145,6 @@ class Rover:
         pygame.draw.line(self.screen, WHITE, (cx, cy), (cx + adj2[0], cy + adj2[1]), 5)
         pygame.draw.line(self.screen, WHITE, (cx, cy), (cx + adj1[0], cy + adj1[1]), 5)
         pygame.draw.line(self.screen, WHITE, (cx + adj1[0], cy + adj1[1]), (cx + adj2[0], cy + adj2[1]), 5)
-        # wp = self.waypoints.get_current_waypoint()
-        # pygame.draw.line(self.screen, RED, (cx, cy), (wp.x,wp.y), 2)
-        # obs = self.obstacles.get_current_obstacle()
-        # pygame.draw.line(self.screen, RED, (cx, cy), (obs.x,obs.y), 2)
         
 
     def draw(self):
@@ -167,23 +163,10 @@ class Rover:
 
     def print_debug_logs(self):
         os.system("clear")
-        # print(f"current waypoint: {self.waypoints.current_waypoint_id}")
-        # print(f"distanct to waypoint: {self.get_distance_to_current_waypoint()}")
-        # print(f"battery level: {self.battery_level}")
-        # print(f"battery utility violated: {self.isUtilityViolatedBattery}")
-        # print(f"cv utility violated: {self.isUtilityViolatedCV}")
-        # print(f"MODE: {self.MODE}")
-        # print(f"currentl velocity: {self.speedx, self.speedy}")
-        # print(f"CV Degraded: {self.CvDegraded}")
-        # print(f"pred_debug logs: {self.pred_debug_logs}")
         obstacle = self.obstacles.get_current_obstacle()
         dist_to_obstacle = np.linalg.norm(
             [obstacle.x - self.rect.center[0], obstacle.y - self.rect.center[1]]
         )
-        # print(f"current obstacle dist: {dist_to_obstacle}")
-        # print(f"obstacles detected: {self.obstacles.current_obstacle_index}")
-
-        # concat strings from above prints into multiline single string
         str_c = (
             f"current waypoint: {self.waypoints.current_waypoint_id}\n"
             f"distanct to waypoint: {self.get_distance_to_current_waypoint()}\n"

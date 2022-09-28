@@ -68,7 +68,6 @@ hack_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((550, 275),
                                              manager=manager)
 
 ## Game loop
-fc = 0
 save = False
 running = True
 pygame_screen_recorder = rec.pygame_screen_recorder("./movie.gif")
@@ -97,10 +96,7 @@ while running:
 
     if save:
         pygame_screen_recorder.click(screen)
-    # r.obstacles.draw()
-    # r.waypoints.draw()
-    # r.mape_loop()
+
     pygame.display.flip()
-    fc+=1
 pygame_screen_recorder.save()
 pygame.quit()
