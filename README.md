@@ -24,7 +24,9 @@ This system consists of a knowledge base and a given rover to manage. The SAS fo
 
 #### 2.1 Assurance Case provided by GSN
 <img src="./gsn/gsn_img.jpg"/>
-This model is parsed and utility functions extracted for later use by the SAS. An incoming update will replace Solution `M0-S1.2.1` with a KAOS goal evaluation as pictured below:
+This model is parsed and utility functions extracted for later use by the SAS. It is important to note that this model specifically addresses run-time goals. Additional design time goals, such as DNN testing, formal verification, additional system analysis are not included. These are important aspects of an assurance case and should be included in future updates to the goal model/system. <br/>
+<br/>
+Additionally, An incoming update will replace Solution `M0-S1.2.1` with a KAOS goal evaluation as pictured below:
 <img src="./gsn/kaos.jpg"/>
 
 #### 2.2 Adaptation Tactics
