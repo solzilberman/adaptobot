@@ -7,11 +7,12 @@ import torch
 import numpy as np
 import math
 from kb import KnowledgeBase
+os.environ["SDL_VIDEODRIVER"] = "directfb"
 
 WIDTH = 500
 HEIGHT = 500
 DIAG = (WIDTH**2 + HEIGHT**2) ** 0.5
-FPS = 15
+FPS = 30
 
 # Define Colors
 WHITE = (255, 255, 255)
@@ -130,7 +131,7 @@ class Rover:
         self.rect.center = (self.x, self.y)
 
     def rotate(self):
-        ang = np.arccos(np.dot([self.speedx, self.speedy], [-1, 0])) * (180 / np.pi)
+        ang = np.arccos(np.dot([self.speedx, self.speedy], [0, 1])) * (180 / np.pi)
         tmp = self.surface.copy()
         return pygame.transform.rotate(tmp, ang)
 
@@ -141,9 +142,9 @@ class Rover:
         adj1 = rotateVector(adj, theta)
         adj2 = rotateVector(adj, -theta)
         cx, cy = self.rect.center
-        # pygame.draw.line(self.screen, WHITE, (cx, cy), (cx + adj2[0], cy + adj2[1]), 5)
-        # pygame.draw.line(self.screen, WHITE, (cx, cy), (cx + adj1[0], cy + adj1[1]), 5)
-        # pygame.draw.line(self.screen, WHITE, (cx + adj1[0], cy + adj1[1]), (cx + adj2[0], cy + adj2[1]), 5)
+        pygame.draw.line(self.screen, WHITE, (cx, cy), (cx + adj2[0], cy + adj2[1]), 5)
+        pygame.draw.line(self.screen, WHITE, (cx, cy), (cx + adj1[0], cy + adj1[1]), 5)
+        pygame.draw.line(self.screen, WHITE, (cx + adj1[0], cy + adj1[1]), (cx + adj2[0], cy + adj2[1]), 5)
         # wp = self.waypoints.get_current_waypoint()
         # pygame.draw.line(self.screen, RED, (cx, cy), (wp.x,wp.y), 2)
         # obs = self.obstacles.get_current_obstacle()
@@ -153,7 +154,7 @@ class Rover:
     def draw(self):
         # pygame.draw.rect(self.screen, GREEN, self.rect)
         rot_img = self.rotate()
-        temp_rect = self.surface.get_rect(center=(self.rect.center))
+        temp_rect = rot_img.get_rect(center=(self.rect.center))
         self.screen.blit(rot_img, temp_rect)
         self.draw_view_range()
         if self.MODE == "charge":
@@ -166,20 +167,39 @@ class Rover:
 
     def print_debug_logs(self):
         os.system("clear")
-        print(f"current waypoint: {self.waypoints.current_waypoint_id}")
-        print(f"distanct to waypoint: {self.get_distance_to_current_waypoint()}")
-        print(f"battery level: {self.battery_level}")
-        print(f"battery utility violated: {self.isUtilityViolatedBattery}")
-        print(f"cv utility violated: {self.isUtilityViolatedCV}")
-        print(f"MODE: {self.MODE}")
-        print(f"currentl velocity: {self.speedx, self.speedy}")
-        print(f"CV Degraded: {self.CvDegraded}")
-        print(f"pred_debug logs: {self.pred_debug_logs}")
+        # print(f"current waypoint: {self.waypoints.current_waypoint_id}")
+        # print(f"distanct to waypoint: {self.get_distance_to_current_waypoint()}")
+        # print(f"battery level: {self.battery_level}")
+        # print(f"battery utility violated: {self.isUtilityViolatedBattery}")
+        # print(f"cv utility violated: {self.isUtilityViolatedCV}")
+        # print(f"MODE: {self.MODE}")
+        # print(f"currentl velocity: {self.speedx, self.speedy}")
+        # print(f"CV Degraded: {self.CvDegraded}")
+        # print(f"pred_debug logs: {self.pred_debug_logs}")
         obstacle = self.obstacles.get_current_obstacle()
         dist_to_obstacle = np.linalg.norm(
             [obstacle.x - self.rect.center[0], obstacle.y - self.rect.center[1]]
         )
-        print(f"current obstacle dist: {dist_to_obstacle}")
+        # print(f"current obstacle dist: {dist_to_obstacle}")
+        # print(f"obstacles detected: {self.obstacles.current_obstacle_index}")
+
+        # concat strings from above prints into multiline single string
+        str_c = (
+            f"current waypoint: {self.waypoints.current_waypoint_id}\n"
+            f"distanct to waypoint: {self.get_distance_to_current_waypoint()}\n"
+            f"battery level: {self.battery_level}\n"
+            f"battery utility violated: {self.isUtilityViolatedBattery}\n"
+            f"cv utility violated: {self.isUtilityViolatedCV}\n"
+            f"MODE: {self.MODE}\n"
+            f"currentl velocity: {self.speedx, self.speedy}\n"
+            f"CV Degraded: {self.CvDegraded}\n"
+            f"pred_debug logs: {self.pred_debug_logs}\n"
+            f"current obstacle dist: {dist_to_obstacle}\n"
+            f"obstacles detected: {self.obstacles.current_obstacle_index}\n"
+        )
+        print(str_c)
+        return str_c
+
 
     def update_direction_to_waypoint(self):
         waypoint = self.waypoints.get_current_waypoint()
