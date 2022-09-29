@@ -14,7 +14,6 @@ HEIGHT = 500
 DIAG = (WIDTH**2 + HEIGHT**2) ** 0.5
 FPS = 30
 
-# Define Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
@@ -44,7 +43,6 @@ class Obstacle:
         #     self.image[0].permute(*torch.arange(self.image[0].ndim - 1, -1, -1)).numpy()
         # )
         # self.screen.blit(pygame_img, (self.x, self.y))
-        # draw a circle with radius 10 and blue
         pygame.draw.circle(self.screen, BLUE, (self.x, self.y), 20)
 
 
