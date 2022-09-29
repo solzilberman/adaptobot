@@ -14,12 +14,10 @@ tactics = {
     ],
 }
 
-
 utility_map = {
     "M0-S1.1.1": lambda uf, dp: uf.func(dp[0], dp[1]),
     "M0-S1.2.1": lambda uf, dp: uf.func(dp, False),
 }
-
 
 class SAS:
     def __init__(self, kbs, rover):

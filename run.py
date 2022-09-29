@@ -13,7 +13,7 @@ HEIGHT = 500
 GUI_WIDTH = 0
 DIAG = (WIDTH**2 + HEIGHT**2) ** 0.5
 FPS = 15
-
+ANIM_STATE = 1
 # Define Colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -61,6 +61,10 @@ def key_callback(event):
     elif event.key == pygame.K_DOWN:
         r.move_manual(0, 1)
 
+    global ANIM_STATE
+    if event.key == pygame.K_SPACE:
+        ANIM_STATE = 0 if ANIM_STATE else 1
+
 
 manager = pygame_gui.UIManager((WIDTH+GUI_WIDTH, HEIGHT))
 hack_button = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((550, 275), (200, 50)),
@@ -85,18 +89,22 @@ while running:
                 print('Hello World!')
         manager.process_events(event)
 
-    screen.fill(BLACK)
-    screen.blit(bgImg, (0, 0))
+    if ANIM_STATE:
+        screen.fill(BLACK)
+        screen.blit(bgImg, (0, 0))
 
-    manager.update(time_delta)
-    manager.draw_ui(screen)
-    sas.rover.obstacles.draw()
-    sas.rover.waypoints.draw()
-    sas._mape_loop()
+        manager.update(time_delta)
+        manager.draw_ui(screen)
+        sas.rover.obstacles.draw()
+        sas.rover.waypoints.draw()
 
-    if save:
-        pygame_screen_recorder.click(screen)
+        sas._mape_loop()
 
-    pygame.display.flip()
-pygame_screen_recorder.save()
+        if save:
+            pygame_screen_recorder.click(screen)
+
+        pygame.display.flip()
+
+if save:
+    pygame_screen_recorder.save()
 pygame.quit()

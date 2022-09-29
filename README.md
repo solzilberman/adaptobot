@@ -6,7 +6,8 @@ The goal of this project was to better understand GSN model creation via GSNDraw
 This rover is heavily inspired and designed after the AC-ROS framework presented [here](https://dl.acm.org/doi/10.1145/3365438.3410952)
 
 ## High-level Architecture Overview
-<img src="assets/archio.png" width="500px"/>
+<!-- <img src="assets/archio.png" width="500px"/> -->
+<img src="uml/uml_class_diagram.png" width="500px"/>
 
 ## Description
 This simulation consists of 4 main components, a rover, an adaptive manager, a knowledge base, and an environment. 

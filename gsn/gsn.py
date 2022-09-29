@@ -27,4 +27,3 @@ class GSNModel:
 
 if __name__ == "__main__":
     model = GSNModel('gsn/gsn.xml')
-    print(model.utility_funcs)
