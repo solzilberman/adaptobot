@@ -28,7 +28,8 @@ This system consists of a knowledge base and a given rover to manage. The SAS fo
 This model is parsed and utility functions extracted for later use by the SAS. It is important to note that this model specifically addresses run-time goals. Additional design time goals, such as DNN testing, formal verification, additional system analysis are not included. These are important aspects of an assurance case and should be included in future updates to the goal model/system. <br/>
 <br/>
 Additionally, An incoming update will replace Solution `M0-S1.2.1` with a KAOS goal evaluation as pictured below:
-<img src="./gsn/kaos.jpg"/>
+
+<img src="./gsn/kaos.jpg" width="700"/>
 
 #### 2.2 Adaptation Tactics
 These are designed after creating the GSN model and map utility violation patterns to actions that the rover can carry out.
