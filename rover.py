@@ -76,8 +76,6 @@ class Obstacles:
     def draw(self):
         self.get_current_obstacle().draw()
 
-
-# create a rover class which is a triangle
 class Rover:
     def __init__(self, waypoints, obstacles, model, screen):
         # general params
@@ -167,6 +165,7 @@ class Rover:
         dist_to_obstacle = np.linalg.norm(
             [obstacle.x - self.rect.center[0], obstacle.y - self.rect.center[1]]
         )
+
         str_c = (
             f"current waypoint: {self.waypoints.current_waypoint_id}\n"
             f"distanct to waypoint: {self.get_distance_to_current_waypoint()}\n"
